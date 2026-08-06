@@ -5,8 +5,10 @@ const dotenv = require("dotenv").config() //this allows me to use my .env values
 const morgan = require('morgan')
 const cors = require('cors')
 
+
 // Routes Import
 const authRoutes = require('./routes/auth.routes')
+
 
 
 // Middleware
@@ -22,6 +24,7 @@ app.use(morgan('dev'))
 
 // Routes
 app.use('/auth',authRoutes)
+
 
 
 
