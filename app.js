@@ -8,6 +8,7 @@ const cors = require('cors')
 
 // Routes Import
 const authRoutes = require('./routes/auth.routes')
+const goalRoutes= require('./routes/goals.router')
 
 
 
@@ -19,6 +20,8 @@ app.use(
 );
 app.use(express.json())
 app.use(morgan('dev'))
+
+app.use('/goals', goalRoutes)
 
 
 
