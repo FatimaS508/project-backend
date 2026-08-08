@@ -7,10 +7,13 @@ const domainSchema = new mongoose.Schema(
     required: true,
     trim: true
     },
+    description:{
+      type: String
+    },
 
     icon: {
     type: String,
-    required: true
+    
     },
 
     User: {
@@ -25,4 +28,4 @@ const domainSchema = new mongoose.Schema(
 
 const Domain = mongoose.model("Domain", domainSchema);
 
-module.exports = User;
+module.exports = Domain;
