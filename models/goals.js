@@ -22,6 +22,10 @@ const goalsSchema = new mongoose.Schema({
     },
     domain:{type:mongoose.Schema.Types.ObjectId,
         ref: "Domain",
+    },
+    owner: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'User',
     }
 },{timestamps:true})
 
