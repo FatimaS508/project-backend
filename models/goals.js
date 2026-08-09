@@ -4,7 +4,7 @@ const trackingSchema = new mongoose.Schema({ //nested schema to tell how to meau
   type: {
     type: String,
     enum: ["boolean", "number"],
-    required: true
+    // required: true
   },
 
   currentAchievement: {
