@@ -7,10 +7,13 @@ const domainSchema = new mongoose.Schema(
     required: true,
     trim: true
     },
+    description:{
+      type: String
+    },
 
     icon: {
     type: String,
-    required: true
+    
     },
 
     User: {
