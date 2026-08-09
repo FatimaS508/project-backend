@@ -25,4 +25,4 @@ const domainSchema = new mongoose.Schema(
 
 const Domain = mongoose.model("Domain", domainSchema);
 
-module.exports = User;
+module.exports = Domain;

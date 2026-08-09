@@ -1,18 +1,18 @@
-const Hoot = require("../models/Domain");
+const Domain = require("../models/Domain");
 
 
 async function createDomain(req, res)
 {
     try
     {
-        const createdDomain= await Domains.create(
+        const createdDomain= await Domain.create(
         {
             domainName: req.body.domainName,
             icon: req.body.icon,
             User: req.user._id
 
         });
-        res.status(201).json(createdHoot);
+        res.status(201).json(createdDomain);
     } 
 
     catch (error)
@@ -38,11 +38,24 @@ async function getAllDomains(req, res)
 }
 
 
+async function getDomainById(req, res) {
+  try {
+    const foundDomain = await Domain.findById(req.params.id).populate('user');
+    res.status(200).json(foundDomain);
+
+  }catch (err) {
+    console.log(err);
+    res.status(500).json({ message: "Internal Server Error. Try again later" });
+  }
+}
 
 
-module.exports = { 
 
-    createDomain
+module.exports = {
+    getAllDomains, 
 
+    createDomain,
+
+    getDomainById
 
  };

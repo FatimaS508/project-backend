@@ -10,6 +10,12 @@ const cors = require('cors')
 const authRoutes = require('./routes/auth.routes')
 const goalRoutes= require('./routes/goals.router')
 
+const domainRoutes = require('./routes/domains.router')
+
+
+const dns = require("dns")
+dns.setServers(["8.8.8.8", "1.1.1.1"])
+
 
 
 // Middleware
@@ -21,15 +27,12 @@ app.use(
 app.use(express.json())
 app.use(morgan('dev'))
 
-app.use('/goals', goalRoutes)
-
-
 
 // Routes
 app.use('/auth',authRoutes)
+app.use('/goals', goalRoutes)
 
-
-
+app.use('/domains', domainRoutes)
 
 
 module.exports = app
