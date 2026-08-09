@@ -3,16 +3,30 @@ const goals = require('../models/goals')
 
 async function createGoal(req,res){
     try{
-        const { title, description, targetDate, priority, status } = req.body;
+    const {
+      title,
+      description,
+      targetDate,
+      priority,
+      status,
+      targetAchievement,
+      unit
+    } = req.body;
 
-        const createdGoal = await goals.create({
-            title,
-            description,
-            targetDate,
-            priority,
-            status,
-            owner: req.user._id
-        });
+    console.log(req.body)
+
+    const tracking = !targetAchievement ? null : {
+        unit,
+        targetAchievement
+      }
+    const createdGoal = await goals.create({
+      title,
+      description,
+      priority,
+      status,
+      tracking,
+      owner: req.user._id
+    });
         res.status(201).json(createdGoal)
     }catch(err){
         console.log(err)
@@ -51,7 +65,7 @@ async function UpdateGoal(req,res){
         if(!findGoal.owner.equals(req.user._id)){
             return res.status(403).json({message: "You are not authorized to modify this goal"})
         }
-            
+        console.log(req.body)
         const updatedGoal = await goals.findByIdAndUpdate(req.params.id, req.body)
 
         res.json(updatedGoal)
