@@ -58,9 +58,9 @@ async function UpdateGoal(req,res){
         const findGoal = await goals.findById(req.params.id)
 
 
-        console.log(findGoal);
+        /*console.log(findGoal);
         console.log(findGoal.user);
-        console.log(req.user._id);
+        console.log(req.user._id);*/
 
         if(!findGoal.owner.equals(req.user._id)){
             return res.status(403).json({message: "You are not authorized to modify this goal"})
@@ -88,5 +88,18 @@ async function deleteGoal(req,res){
     }catch(err){console.log(err)}
 }
 
+async function deleteAll(req,res){
+    try{
+    const deletedAllGoals= await goals.deleteMany({owner: req.user._id })
+    if (deletedAllGoals.deletedCount === 0) {
+      return res.status(404).json({ message: "No goals found to delete" });
+    }
 
-module.exports={createGoal, getGoals, getGoalById, UpdateGoal, deleteGoal}
+    res.json({ message: "All goals deleted successfully" });
+}catch(err){
+    console.log(err)
+}
+}
+
+
+module.exports={createGoal, getGoals, getGoalById, UpdateGoal, deleteGoal, deleteAll}
