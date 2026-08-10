@@ -15,10 +15,19 @@ async function createGoal(req,res){
 
     console.log(req.body)
 
-    const tracking = !targetAchievement ? null : {
+    /*const tracking = !targetAchievement ? null : {
         unit,
         targetAchievement
-      }
+      }*/
+    let tracking = null;
+
+    if (targetAchievement !== "" && unit !== "") {
+            tracking = {
+                unit,
+                targetAchievement,
+                currentAchievement: 0
+            };
+     }
     const createdGoal = await goals.create({
       title,
       description,
@@ -66,7 +75,7 @@ async function UpdateGoal(req,res){
             return res.status(403).json({message: "You are not authorized to modify this goal"})
         }
         console.log(req.body)
-        const updatedGoal = await goals.findByIdAndUpdate(req.params.id, req.body)
+        const updatedGoal = await goals.findByIdAndUpdate(req.params.id, req.body, { new: true })
 
         res.json(updatedGoal)
 
