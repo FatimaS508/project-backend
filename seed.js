@@ -2,6 +2,9 @@ const connectToDB = require('./config/db.js')
 const dotenv = require("dotenv").config()
 
 const Domain= require('./models/Domain.js')
+const dns = require("dns")
+dns.setServers(["8.8.8.8", "1.1.1.1"])
+
 
 connectToDB()
 
