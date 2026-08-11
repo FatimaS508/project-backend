@@ -1,5 +1,5 @@
-const goal = require('../models/goals');
-const goals = require('../models/goals')
+const goals = require('../models/goals');
+
 
 async function createGoal(req,res){
     try{
@@ -10,7 +10,8 @@ async function createGoal(req,res){
       priority,
       status,
       targetAchievement,
-      unit
+      unit,
+      domain
     } = req.body;
 
     console.log(req.body)
@@ -19,13 +20,16 @@ async function createGoal(req,res){
         unit,
         targetAchievement
       }
+    
     const createdGoal = await goals.create({
       title,
       description,
       priority,
       status,
       tracking,
-      owner: req.user._id
+      owner: req.user._id,
+      domain
+    
     });
         res.status(201).json(createdGoal)
     }catch(err){
