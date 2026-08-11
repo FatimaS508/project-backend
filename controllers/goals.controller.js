@@ -27,9 +27,8 @@ async function createGoal(req,res){
       priority,
       status,
       tracking,
-      owner: req.user._id,
-      domain
-    
+      domain,
+      owner: req.user._id
     });
         res.status(201).json(createdGoal)
     }catch(err){
@@ -39,7 +38,7 @@ async function createGoal(req,res){
 
 async function getGoals(req,res){
     try{
-        const allGoals = await goals.find()
+        const allGoals = await goals.find().populate('domain')
 
         res.status(200).json(allGoals)
 
