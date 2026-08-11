@@ -54,7 +54,7 @@ async function getDomainById(req, res) {
 
   }catch (err) {
     console.log(err);
-    res.status(500).json({ message: "Internal Server Error. Try again later" });
+    res.status(500).json("Internal server error.");
   }
 }
 

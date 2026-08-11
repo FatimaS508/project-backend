@@ -16,7 +16,7 @@ async function createGoal(req,res){
 
     console.log(req.body)
 
-    const tracking = !targetAchievement ? null : {
+    /*const tracking = !targetAchievement ? null : {
         unit,
         targetAchievement
       }
@@ -27,9 +27,8 @@ async function createGoal(req,res){
       priority,
       status,
       tracking,
-      owner: req.user._id,
-      domain
-    
+      domain,
+      owner: req.user._id
     });
         res.status(201).json(createdGoal)
     }catch(err){
@@ -39,7 +38,7 @@ async function createGoal(req,res){
 
 async function getGoals(req,res){
     try{
-        const allGoals = await goals.find()
+        const allGoals = await goals.find().populate('domain')
 
         res.status(200).json(allGoals)
 
@@ -62,15 +61,15 @@ async function UpdateGoal(req,res){
         const findGoal = await goals.findById(req.params.id)
 
 
-        console.log(findGoal);
+        /*console.log(findGoal);
         console.log(findGoal.user);
-        console.log(req.user._id);
+        console.log(req.user._id);*/
 
         if(!findGoal.owner.equals(req.user._id)){
             return res.status(403).json({message: "You are not authorized to modify this goal"})
         }
         console.log(req.body)
-        const updatedGoal = await goals.findByIdAndUpdate(req.params.id, req.body)
+        const updatedGoal = await goals.findByIdAndUpdate(req.params.id, req.body, { new: true })
 
         res.json(updatedGoal)
 
@@ -92,5 +91,18 @@ async function deleteGoal(req,res){
     }catch(err){console.log(err)}
 }
 
+async function deleteAll(req,res){
+    try{
+    const deletedAllGoals= await goals.deleteMany({owner: req.user._id })
+    if (deletedAllGoals.deletedCount === 0) {
+      return res.status(404).json({ message: "No goals found to delete" });
+    }
 
-module.exports={createGoal, getGoals, getGoalById, UpdateGoal, deleteGoal}
+    res.json({ message: "All goals deleted successfully" });
+}catch(err){
+    console.log(err)
+}
+}
+
+
+module.exports={createGoal, getGoals, getGoalById, UpdateGoal, deleteGoal, deleteAll}
