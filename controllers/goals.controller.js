@@ -16,7 +16,7 @@ async function createGoal(req,res){
 
     console.log(req.body)
 
-    /*const tracking = !targetAchievement ? null : {
+    const tracking = !targetAchievement ? null : {
         unit,
         targetAchievement
       }
@@ -61,9 +61,9 @@ async function UpdateGoal(req,res){
         const findGoal = await goals.findById(req.params.id)
 
 
-        /*console.log(findGoal);
+        console.log(findGoal);
         console.log(findGoal.user);
-        console.log(req.user._id);*/
+        console.log(req.user._id);
 
         if(!findGoal.owner.equals(req.user._id)){
             return res.status(403).json({message: "You are not authorized to modify this goal"})
@@ -81,7 +81,7 @@ async function deleteGoal(req,res){
         const findGoal= await goals.findById(req.params.id)
 
         if(!findGoal.owner.equals(req.user._id)){
-            res.status(403).json({message: "You are not authorized to delete this goal"})
+           return res.status(403).json({message: "You are not authorized to delete this goal"})
         }
 
 
