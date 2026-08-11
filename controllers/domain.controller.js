@@ -40,7 +40,7 @@ async function getAllDomains(req, res)
 
 async function getDomainById(req, res) {
   try {
-    const foundDomain = await Domain.findById(req.params.id).populate('user');
+    const foundDomain = await Domain.findById(req.params.id)
     res.status(200).json(foundDomain);
 
   }catch (err) {
@@ -51,11 +51,47 @@ async function getDomainById(req, res) {
 
 
 
+async function updateDomainById(req,res){
+    try{
+
+        const foundDomain = await Domain.findById(req.params.id)
+
+     if (!foundDomain.User || !foundDomain.User.equals(req.user._id))
+        {         
+        return res.status(403).json({message:'Cannot edit other peoples domains'})
+        }
+
+        const updatedDomain = await Domain.findByIdAndUpdate(req.params.id, req.body)
+        res.json(updatedDomain)
+
+    }catch(err){
+        console.log(err)
+    }
+}
+
+
+async function deleteDomain(req, res){
+    try{
+       const foundDomain = await Domain.findById(req.params.id)
+
+        const deletedDomain = await Domain.findByIdAndDelete(req.params.id)
+        res.json(deletedDomain)
+
+    } catch(err){
+         console.log(err)
+    }
+}
+
+
 module.exports = {
     getAllDomains, 
 
     createDomain,
 
-    getDomainById
+    getDomainById,
+
+    updateDomainById,
+
+    deleteDomain
 
  };
