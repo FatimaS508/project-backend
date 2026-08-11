@@ -1,4 +1,6 @@
 const Domain = require("../models/Domain");
+const Goal = require("../models/goals")  
+
 
 
 async function createDomain(req, res)
@@ -40,8 +42,16 @@ async function getAllDomains(req, res)
 
 async function getDomainById(req, res) {
   try {
-    const foundDomain = await Domain.findById(req.params.id).populate('User');
-    res.status(200).json(foundDomain);
+    const domainId = req.params.id
+    const foundDomain = await Domain.findById(domainId)
+    const goalsInDomain = await Goal.find({ domain: domainId })
+
+    res.status(200).json({
+    domain: foundDomain,
+    goals: goalsInDomain
+});
+
+
   }catch (err) {
     console.log(err);
     res.status(500).json("Internal server error.");
