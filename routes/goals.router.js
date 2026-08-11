@@ -7,5 +7,6 @@ router.get('/',verifyToken, goalController.getGoals)
 router.get('/:id', verifyToken, goalController.getGoalById)
 router.put('/:id', verifyToken, goalController.UpdateGoal)
 router.delete('/:id', verifyToken, goalController.deleteGoal)
+router.delete('/', verifyToken, goalController.deleteAll)
 
 module.exports= router
