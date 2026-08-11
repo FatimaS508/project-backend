@@ -81,7 +81,7 @@ async function deleteGoal(req,res){
         const findGoal= await goals.findById(req.params.id)
 
         if(!findGoal.owner.equals(req.user._id)){
-            res.status(403).json({message: "You are not authorized to delete this goal"})
+           return res.status(403).json({message: "You are not authorized to delete this goal"})
         }
 
 
