@@ -40,12 +40,11 @@ async function getAllDomains(req, res)
 
 async function getDomainById(req, res) {
   try {
-    const foundDomain = await Domain.findById(req.params.id).populate('user');
+    const foundDomain = await Domain.findById(req.params.id).populate('User');
     res.status(200).json(foundDomain);
-
   }catch (err) {
     console.log(err);
-    res.status(500).json({ message: "Internal Server Error. Try again later" });
+    res.status(500).json("Internal server error.");
   }
 }
 
