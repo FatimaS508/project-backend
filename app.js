@@ -18,7 +18,7 @@ dns.setServers(["8.8.8.8", "1.1.1.1"])
 
 
 
-// Middleware
+
 app.use(
     cors({
         origin: process.env.CLIENT_URL || 'http://localhost:5173',
@@ -28,7 +28,7 @@ app.use(express.json())
 app.use(morgan('dev'))
 
 
-// Routes
+
 app.use('/auth',authRoutes)
 app.use('/goals', goalRoutes)
 
