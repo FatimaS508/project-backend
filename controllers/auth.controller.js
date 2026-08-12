@@ -6,7 +6,7 @@ async function signUp(req, res) {
   try {
     const { username, password } = req.body;
 
-    // Validation
+    
     if (!username || !password) return res.status(400).json({message: "Username and password are required.",});
     if (password.length < 6) return res.status(400).json({message: "Password must be more than 6 characters",});
 
@@ -62,7 +62,7 @@ async function signIn(req, res) {
       return res.status(401).json({ message: "Invalid credentials." });
     }
 
-    // Construct the payload
+    
     const payload = { username: user.username, _id: user._id };
 
 

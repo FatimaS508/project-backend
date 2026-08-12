@@ -41,12 +41,12 @@ const goalsSchema = new mongoose.Schema({
         type: String,
         enum:[ "low, medium, high"]
     },
-    status:{ //to tell in what stage am i in
+    status:{ 
         type: String,
         enum: ["Not Started", "In-progress", "Finished"],
         default: "Not Started"
     },
-    progress: { //calculate the progress of the completion in %
+    progress: { 
         type: Number,
         min: 0,
         max: 100,
